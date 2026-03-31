@@ -1,4 +1,5 @@
 import React from "react";
+import { FiSearch, FiShoppingCart } from "react-icons/fi";
 
 const Navbar = () => {
   return (
@@ -22,6 +23,12 @@ const Navbar = () => {
           <li className="hover:text-purple-600 cursor-pointer hover:underline">Deals</li>
           <li className="hover:text-purple-600 cursor-pointer hover:underline">About</li>
         </ul>
+
+        {/* icons */}
+        <div className="flex items-center gap-4 text-2xl">
+          <FiSearch className="text-gray-600 cursor-pointer hover:text-purple-600" />
+          <FiShoppingCart className="text-gray-600 cursor-pointer hover:text-purple-600" />
+        </div>
     </nav>
   );
 };
