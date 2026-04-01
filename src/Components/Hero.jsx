@@ -21,12 +21,12 @@ const Hero = () => {
         Discover the latest tech products at amazing prices
       </p>
 
-       <div className="w-full max-w-xl bg-white/20 backdrop-blur-md rounded-xl flex items-center px-4 py-3 mb-10">
-        <FiSearch className="text-white/70 text-xl mr-3" />
+       <div className="w-full max-w-xl bg-white/20 backdrop-blur-md rounded-xl flex items-center px-4 py-3 mb-10 border-gray-400">
+        <FiSearch className="text-white/70 text-xl mr-3 " />
         <input
           type="text"
           placeholder="Search for products..."
-          className="bg-transparent outline-none text-white w-full placeholder-white/60"
+          className="bg-transparent outline-none text-black/40 w-full placeholder:text-black/40"
         />
       </div>
 
