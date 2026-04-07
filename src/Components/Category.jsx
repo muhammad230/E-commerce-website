@@ -11,10 +11,57 @@ const categories = [
   "Gaming",
 ];
 
+const products = [
+  {
+    id: 1,
+    title: "Premium Wireless Headphones",
+    category: "Audio",
+    price: 299.99,
+    rating: 4.8,
+    reviews: 342,
+    image: "images/img.pods.jfif",
+  },
+  {
+    id: 2,
+    title: "Smart Fitness Watch",
+    category: "Wearables",
+    price: 399.99,
+    rating: 4.6,
+    reviews: 287,
+    image: "images/watch.jfif",
+  },
+  {
+    id: 3,
+    title: "Ultra-Thin Laptop",
+    category: "Computers",
+    price: 1299.99,
+    rating: 4.9,
+    reviews: 456,
+    image:
+      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8",
+  },
+  {
+    id: 4,
+    title: "Mirrorless Camera",
+    category: "Photography",
+    price: 899.99,
+    rating: 4.7,
+    reviews: 198,
+    image: "images/camera.jfif",
+  },
+];
+
 const Category = () => {
   const [active, setActive] = useState("All");
+
+  const filteredProducts =
+    active === "All"
+      ? products
+      : products.filter((p) => p.category === active);
+
   return (
-    <section className="px-22 py-12 bg-gray-100">
+    <section className="px-6 md:px-20 py-12 bg-gray-100">
+      
       {/* Heading */}
       <h2 className="text-3xl font-bold mb-6 flex items-center gap-2">
         📈
@@ -23,7 +70,7 @@ const Category = () => {
         </span>
       </h2>
 
-      {/* Buttons */}
+      {/* Category Buttons */}
       <div className="flex flex-wrap gap-4">
         {categories.map((item) => (
           <button
@@ -40,6 +87,61 @@ const Category = () => {
           </button>
         ))}
       </div>
+
+      {/* Products Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-10 ">
+        {filteredProducts.map((item) => (
+          <div
+            key={item.id}
+            className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition duration-300"
+          >
+            {/* Image */}
+            <div className="relative">
+              <img
+                src={item.image}
+                alt={item.title}
+                className="w-full h-[200px] object-cover"
+              />
+              <span className="absolute top-3 left-3 bg-green-500 text-white text-xs px-3 py-1 rounded-full">
+                In Stock
+              </span>
+            </div>
+
+            {/* Content */}
+            <div className="p-4">
+              {/* Rating */}
+              <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
+                <span className="text-yellow-400">★★★★★</span>
+                <span>
+                  {item.rating} ({item.reviews})
+                </span>
+              </div>
+
+              {/* Title */}
+              <h2 className="text-lg font-semibold mb-1">
+                {item.title}
+              </h2>
+
+              {/* Category */}
+              <span className="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">
+                {item.category}
+              </span>
+
+              {/* Price + Button */}
+              <div className="flex justify-between items-center mt-4">
+                <h3 className="text-xl font-bold text-purple-600">
+                  ${item.price}
+                </h3>
+
+                <button className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-4 py-2 rounded-lg hover:opacity-90">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
     </section>
   );
 };
