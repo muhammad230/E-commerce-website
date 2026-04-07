@@ -81,8 +81,8 @@ const products = [
     title: "portable Bluetooth Speaker",
     category: "Audio",
     price: 149.99,
-    rating: 4.7,
-    reviews: 189,
+    rating: 4.6,
+    reviews: 421,
     image: "images/speaker.jfif",
 
   }
@@ -128,7 +128,7 @@ const Category = () => {
       </div>
 
       {/* Products Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-10 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-10 hover:cursor-pointer">
         {filteredProducts.map((item) => (
           <div
             key={item.id}
