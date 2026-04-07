@@ -49,6 +49,45 @@ const products = [
     reviews: 198,
     image: "images/camera.jfif",
   },
+  {
+    id: 5,
+    title: "Flagship Smartphone",
+    category: "Mobile",
+    price: 699.99,
+    rating: 4.8,
+    reviews: 321,
+    image: "images/phone.jfif",
+  },
+  {
+    id: 6,
+    title: "High-Performance Tablet",
+    category: "Tablets",
+    price: 499.99,
+    rating: 4.6,
+    reviews: 256,
+    image: "images/tablet.jfif",
+  },
+  {
+    id: 7,
+    title: "Next-Gen Gaming Console",
+    category: "Gaming",
+    price: 499.99,
+    rating: 4.8,
+    reviews: 412,
+    image: "images/gaming.webp",
+  },
+  {
+    id: 8,
+    title: "portable Bluetooth Speaker",
+    category: "Audio",
+    price: 149.99,
+    rating: 4.7,
+    reviews: 189,
+    image: "images/speaker.jfif",
+
+  }
+
+
 ];
 
 const Category = () => {
