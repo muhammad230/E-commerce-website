@@ -2,6 +2,9 @@ import React from "react";
 import { FiSearch, FiShoppingCart } from "react-icons/fi";
 
 const Navbar = () => {
+  const cartImg = () => {   
+    alert("Your cart is empty! Start shopping now!");
+  }
   return (
     <nav className="w-full bg-white shadow-sm px-8 py-4 flex items-center justify-between">
       <div className="flex items-center gap-2">
@@ -27,7 +30,7 @@ const Navbar = () => {
         {/* icons */}
         <div className="flex items-center gap-4 text-2xl">
           <FiSearch className="text-gray-600 cursor-pointer hover:text-purple-600" />
-          <FiShoppingCart className="text-gray-600 cursor-pointer hover:text-purple-600" />
+          <FiShoppingCart onClick={cartImg} className="text-gray-600 cursor-pointer hover:text-purple-600" />
         </div>
     </nav>
   );
