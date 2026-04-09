@@ -101,6 +101,9 @@ const Category = () => {
       const addToCart = () => {
         alert("Product added to cart!");
       };
+      const addImgToCart = () => {
+        alert("Product added to cart!");
+      };
 
   return (
     <section className="px-6 md:px-20 py-12 bg-gray-100">
@@ -140,7 +143,7 @@ const Category = () => {
           >
             {/* Image */}
             <div className="relative">
-              <img
+              <img onClick={addImgToCart}
                 src={item.image}
                 alt={item.title}
                 className="w-full h-[200px] object-cover"
