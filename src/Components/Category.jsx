@@ -98,6 +98,13 @@ const Category = () => {
       ? products
       : products.filter((p) => p.category === active);
 
+      const addToCart = () => {
+        alert("Product added to cart!");
+      };
+      const addImgToCart = () => {
+        alert("Product added to cart!");
+      };
+
   return (
     <section className="px-6 md:px-20 py-12 bg-gray-100">
       
@@ -136,7 +143,7 @@ const Category = () => {
           >
             {/* Image */}
             <div className="relative">
-              <img
+              <img onClick={addImgToCart}
                 src={item.image}
                 alt={item.title}
                 className="w-full h-[200px] object-cover"
@@ -172,7 +179,7 @@ const Category = () => {
                   ${item.price}
                 </h3>
 
-                <button className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-4 py-2 rounded-lg hover:opacity-90">
+                <button onClick={addToCart} className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-4 py-2 rounded-lg hover:opacity-90  ">
                   Add to Cart
                 </button>
               </div>
