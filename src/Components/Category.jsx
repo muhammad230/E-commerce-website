@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useCart } from "../CartContext";
+import { useNavigate } from "react-router-dom";
 
 const categories = [
   "All",
@@ -37,8 +39,7 @@ const products = [
     price: 1100.99,
     rating: 4.7,
     reviews: 456,
-    image:
-      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8",
+    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8",
   },
   {
     id: 4,
@@ -78,36 +79,33 @@ const products = [
   },
   {
     id: 8,
-    title: "portable Bluetooth Speaker",
+    title: "Portable Bluetooth Speaker",
     category: "Audio",
     price: 149.99,
     rating: 4.6,
     reviews: 421,
     image: "images/speaker.jfif",
-
-  }
-
-
+  },
 ];
 
 const Category = () => {
   const [active, setActive] = useState("All");
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   const filteredProducts =
     active === "All"
       ? products
       : products.filter((p) => p.category === active);
 
-      const addToCart = () => {
-        alert("Product added to cart!");
-      };
-      const addImgToCart = () => {
-        alert("Product added to cart!");
-      };
+  const handleAddToCart = (item) => {
+    addToCart(item);
+    alert(`${item.title} added to cart!`);
+  };
 
   return (
     <section className="px-6 md:px-20 py-12 bg-gray-100">
-      
+
       {/* Heading */}
       <h2 className="text-3xl font-bold mb-6 flex items-center gap-2">
         📈
@@ -143,10 +141,11 @@ const Category = () => {
           >
             {/* Image */}
             <div className="relative">
-              <img onClick={addImgToCart}
+              <img
+                onClick={() => handleAddToCart(item)}
                 src={item.image}
                 alt={item.title}
-                className="w-full h-[200px] object-cover"
+                className="w-full h-[200px] object-cover hover:scale-105 transition-transform cursor-pointer"
               />
               <span className="absolute top-3 left-3 bg-green-500 text-white text-xs px-3 py-1 rounded-full">
                 In Stock
@@ -164,9 +163,7 @@ const Category = () => {
               </div>
 
               {/* Title */}
-              <h2 className="text-lg font-semibold mb-1">
-                {item.title}
-              </h2>
+              <h2 className="text-lg font-semibold mb-1">{item.title}</h2>
 
               {/* Category */}
               <span className="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">
@@ -179,10 +176,22 @@ const Category = () => {
                   ${item.price}
                 </h3>
 
-                <button onClick={addToCart} className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-4 py-2 rounded-lg hover:opacity-90  ">
+                <button
+                  onClick={() => handleAddToCart(item)}
+                  className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-4 py-2 rounded-lg hover:opacity-90"
+                >
                   Add to Cart
                 </button>
               </div>
+
+              {/* Go to Cart Button */}
+              <button
+                onClick={() => navigate("/cart")}
+                className="w-full mt-3 border-2 border-purple-500 text-purple-600 px-4 py-2 rounded-lg hover:bg-purple-50 transition"
+              >
+                View Cart 🛒
+              </button>
+
             </div>
           </div>
         ))}
