@@ -98,9 +98,15 @@ const Category = () => {
       ? products
       : products.filter((p) => p.category === active);
 
+  // Click on button → Add to Cart
   const handleAddToCart = (item) => {
     addToCart(item);
     alert(`${item.title} added to cart!`);
+  };
+
+  // Click on image → Go to Product Detail Page
+  const handleImageClick = (item) => {
+    navigate(`/product/${item.id}`, { state: item });
   };
 
   return (
@@ -133,19 +139,19 @@ const Category = () => {
       </div>
 
       {/* Products Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-10 hover:cursor-pointer">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-10">
         {filteredProducts.map((item) => (
           <div
             key={item.id}
             className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition duration-300"
           >
-            {/* Image */}
+            {/* Image — Click to go to Product Detail Page */}
             <div className="relative">
               <img
-                onClick={() => handleAddToCart(item)}
+                onClick={() => handleImageClick(item)}
                 src={item.image}
                 alt={item.title}
-                className="w-full h-[200px] object-cover hover:scale-105 transition-transform cursor-pointer"
+                className="w-full h-[200px] object-cover cursor-pointer hover:scale-105 transition-transform duration-300"
               />
               <span className="absolute top-3 left-3 bg-green-500 text-white text-xs px-3 py-1 rounded-full">
                 In Stock
@@ -154,6 +160,7 @@ const Category = () => {
 
             {/* Content */}
             <div className="p-4">
+
               {/* Rating */}
               <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
                 <span className="text-yellow-400">★★★★★</span>
@@ -170,12 +177,13 @@ const Category = () => {
                 {item.category}
               </span>
 
-              {/* Price + Button */}
+              {/* Price + Add to Cart Button */}
               <div className="flex justify-between items-center mt-4">
                 <h3 className="text-xl font-bold text-purple-600">
                   ${item.price}
                 </h3>
 
+                {/* Click button → Add to Cart */}
                 <button
                   onClick={() => handleAddToCart(item)}
                   className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-4 py-2 rounded-lg hover:opacity-90"
@@ -184,7 +192,7 @@ const Category = () => {
                 </button>
               </div>
 
-              {/* Go to Cart Button */}
+              {/* View Cart Button */}
               <button
                 onClick={() => navigate("/cart")}
                 className="w-full mt-3 border-2 border-purple-500 text-purple-600 px-4 py-2 rounded-lg hover:bg-purple-50 transition"
