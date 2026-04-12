@@ -1,4 +1,4 @@
-    import { useCart } from "../CartContext";
+import { useCart } from "../CartContext";
 
 export default function CartPage() {
   const { cart, removeFromCart } = useCart();
@@ -12,8 +12,15 @@ export default function CartPage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {cart.map((item, index) => (
-            <div key={index} className="border p-4 rounded flex items-center gap-4">
-              <img src={item.image} alt={item.title} className="w-20 h-20 object-cover" />
+            <div
+              key={index}
+              className="border p-4 rounded flex items-center gap-4"
+            >
+              <img
+                src={item.image}
+                alt={item.title}
+                className="w-20 h-20 object-cover"
+              />
               <div>
                 <h3 className="font-semibold">{item.title}</h3>
                 <p>${item.price}</p>
