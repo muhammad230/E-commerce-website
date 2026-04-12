@@ -8,7 +8,7 @@ const Navbar = () => {
   const { cart } = useCart();
 
   return (
-    <nav className="w-full bg-white shadow-sm px-8 py-4 flex items-center justify-between">
+    <nav className="w-full bg-white shadow-sm px-8 py-4 flex items-center justify-between sticky top-0 z-50 ">
       
       {/* Logo */}
       <div className="flex items-center gap-2">
