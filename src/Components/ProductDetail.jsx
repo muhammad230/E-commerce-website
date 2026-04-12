@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "../CartContext";
 
@@ -6,10 +6,11 @@ const ProductDetail = () => {
   const { state: item } = useLocation(); // get product data
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const [isAdded, setIsAdded] = useState(false);
 
   const handleAddToCart = () => {
     addToCart(item);
-    alert(`${item.title} added to cart!`);
+    setIsAdded(true);
   };
 
   return (
@@ -90,13 +91,17 @@ const ProductDetail = () => {
           <div className="flex gap-4">
             <button
               onClick={handleAddToCart}
-              className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-6 py-3 rounded-lg hover:opacity-90 font-medium"
+              className={`px-6 py-3 rounded-lg hover:opacity-90 font-medium text-white transition-all ${
+                isAdded
+                  ? "bg-green-500"
+                  : "bg-gradient-to-r from-purple-600 to-pink-500"
+              }`}
             >
-              Add to Cart 🛒
+              {isAdded ? "✓ Added to Cart" : "Add to Cart 🛒"}
             </button>
             <button
               onClick={() => navigate("/cart")}
-              className="border-2 border-purple-500 text-purple-600 px-6 py-3 rounded-lg hover:bg-purple-50 font-medium"
+              className="border-2 border-purple-600 text-pink-600 px-6 py-3 rounded-lg hover:bg-purple-50 font-medium"
             >
               View Cart
             </button>
