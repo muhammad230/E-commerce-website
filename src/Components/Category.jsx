@@ -21,7 +21,7 @@ const products = [
     price: 200.99,
     rating: 4.6,
     reviews: 342,
-    image: "images/img.pods.jfif",
+    image: "/images/img.pods.jfif",
   },
   {
     id: 2,
@@ -30,7 +30,7 @@ const products = [
     price: 230.99,
     rating: 4.6,
     reviews: 287,
-    image: "images/watch.jfif",
+    image: "/images/watch.jfif",
   },
   {
     id: 3,
@@ -48,7 +48,7 @@ const products = [
     price: 867.99,
     rating: 4.4,
     reviews: 198,
-    image: "images/camera.jfif",
+    image: "/images/camera.jfif",
   },
   {
     id: 5,
@@ -57,7 +57,7 @@ const products = [
     price: 640.99,
     rating: 4.5,
     reviews: 321,
-    image: "images/phone.jfif",
+    image: "/images/phone.jfif",
   },
   {
     id: 6,
@@ -66,7 +66,7 @@ const products = [
     price: 350.99,
     rating: 4.7,
     reviews: 256,
-    image: "images/tablet.jfif",
+    image: "/images/tablet.jfif",
   },
   {
     id: 7,
@@ -75,7 +75,7 @@ const products = [
     price: 234.99,
     rating: 4.5,
     reviews: 412,
-    image: "images/gaming.webp",
+    image: "/images/gaming.webp",
   },
   {
     id: 8,
@@ -84,7 +84,7 @@ const products = [
     price: 149.99,
     rating: 4.6,
     reviews: 421,
-    image: "images/speaker.jfif",
+    image: "/images/speaker.jfif",
   },
 ];
 
