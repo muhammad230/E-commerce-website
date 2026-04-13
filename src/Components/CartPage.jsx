@@ -169,7 +169,7 @@ export default function CartPage() {
             {/* Continue Shopping Button */}
             <button
               onClick={() => navigate("/")}
-              className="w-full border-2 border-white text-white py-3 rounded-xl hover:bg-white hover:bg-opacity-10 font-bold text-lg transition"
+              className="w-full border-2 border-white text-white py-3 rounded-xl hover:bg-white hover:text-purple-600 hover:border-purple-600 font-bold text-lg transition duration-300"
             >
               Continue Shopping
             </button>
