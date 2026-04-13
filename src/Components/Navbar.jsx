@@ -13,7 +13,7 @@ const Navbar = () => {
       {/* Logo */}
       <div className="flex items-center gap-2">
         <span className="text-purple-600 text-xl font-bold">✨</span>
-        <h1 onClick={() => navigate("/")} className="text-2xl font-bold  cursor-pointer">
+        <h1 onClick={() => navigate("/")} className="text-2xl font-bold cursor-pointer">
           <span className="bg-gradient-to-r from-purple-600 to-pink-400 bg-clip-text text-transparent">
             Tech
           </span>
