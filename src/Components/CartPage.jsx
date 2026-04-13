@@ -1,20 +1,44 @@
 import { useCart } from "../CartContext";
 import { useNavigate } from "react-router-dom";
 import { FiShoppingCart } from "react-icons/fi";
+import { useState } from "react";
 
 export default function CartPage() {
-  const { cart, removeFromCart } = useCart();
+  const { cart, removeFromCart, clearCart } = useCart();
   const navigate = useNavigate();
+  const [quantities, setQuantities] = useState({});
 
-  // Calculate total price
-  const total = cart.reduce((sum, item) => sum + item.price, 0);
+  // Initialize quantities
+  const getQuantity = (itemId) => quantities[itemId] || 1;
+
+  const updateQuantity = (itemId, amount) => {
+    setQuantities(prev => ({
+      ...prev,
+      [itemId]: Math.max(1, (prev[itemId] || 1) + amount)
+    }));
+  };
+
+  // Calculate totals
+  const subtotal = cart.reduce((sum, item) => sum + item.price * getQuantity(item.id), 0);
+  const shipping = 9.99;
+  const tax = subtotal * 0.08;
+  const total = subtotal + shipping + tax;
 
   return (
-    <div className="min-h-screen bg-gray-100 px-6 md:px-20 py-10">
+    <div className="min-h-screen bg-pink-50 px-6 md:px-20 py-10">
 
       {/* Header */}
-      <div className="flex items-center mb-8 gap-4">
-      </div>
+      <button
+        onClick={() => navigate("/")}
+        className="flex items-center gap-2 text-gray-600 hover:text-purple-600 mb-8 text-sm font-medium"
+      >
+        ← Continue Shopping
+      </button>
+
+      {/* Title */}
+      <h1 className="text-4xl font-bold mb-8 text-purple-600">
+        ✨ Shopping Cart
+      </h1>
 
       {/* Empty Cart */}
       {cart.length === 0 ? (
@@ -43,62 +67,111 @@ export default function CartPage() {
         </div>
 
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-          {/* Cart Items */}
-          {cart.map((item, index) => (
-            <div
-              key={index}
-              className="bg-white border p-4 rounded-2xl flex items-center gap-4 shadow-sm hover:shadow-md transition"
-            >
-              {/* Product Image */}
-              <img
-                src={item.image}
-                alt={item.title}
-                className="w-24 h-24 object-cover rounded-xl"
-              />
-
-              {/* Product Info */}
-              <div className="flex-1">
-                <h3 className="font-semibold text-gray-800">{item.title}</h3>
-                <p className="text-purple-600 font-bold">${item.price}</p>
-                <span className="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">
-                  {item.category}
-                </span>
-              </div>
-
-              {/* Remove Button */}
-              <button
-                onClick={() => removeFromCart(item.id)}
-                className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 text-sm"
-              >
-                Remove
+          {/* Left Section - Cart Items */}
+          <div className="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm">
+            
+            {/* Cart Items Header */}
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-gray-800">
+                Cart Items <span className="text-purple-600">({cart.length})</span>
+              </h2>
+              <button onClick={clearCart} className="text-red-500 hover:text-red-700 font-medium">
+                Clear Cart
               </button>
             </div>
-          ))}
 
-          {/* Total Price + Checkout */}
-          <div className="col-span-1 md:col-span-2 bg-white p-6 rounded-2xl shadow-sm">
-            
-            {/* Total */}
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold text-gray-800">Total Price:</h2>
-              <h2 className="text-2xl font-bold text-purple-600">
-                ${total.toFixed(2)}
-              </h2>
+            {/* Cart Items List */}
+            {cart.map((item) => (
+              <div
+                key={item.id}
+                className="bg-gray-50 p-4 rounded-xl mb-4 flex items-center justify-between hover:bg-gray-100 transition"
+              >
+                {/* Product Image & Info */}
+                <div className="flex items-center gap-4 flex-1">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-24 h-24 object-cover rounded-lg"
+                  />
+                  <div>
+                    <h3 className="font-semibold text-gray-800">{item.title}</h3>
+                    <p className="text-purple-600 font-bold text-lg">${item.price}</p>
+                  </div>
+                </div>
+
+                {/* Quantity Controls */}
+                <div className="flex items-center gap-3 mr-4">
+                  <button
+                    onClick={() => updateQuantity(item.id, -1)}
+                    className="text-purple-600 hover:text-purple-700 text-xl font-bold"
+                  >
+                    −
+                  </button>
+                  <span className="w-8 text-center font-semibold">
+                    {getQuantity(item.id)}
+                  </span>
+                  <button
+                    onClick={() => updateQuantity(item.id, 1)}
+                    className="text-purple-600 hover:text-purple-700 text-xl font-bold"
+                  >
+                    +
+                  </button>
+                </div>
+
+                {/* Price & Remove */}
+                <div className="text-right">
+                  <p className="text-lg font-bold text-gray-800 mb-2">
+                    ${(item.price * getQuantity(item.id)).toFixed(2)}
+                  </p>
+                  <button
+                    onClick={() => removeFromCart(item.id)}
+                    className="text-gray-400 hover:text-gray-600 text-xl"
+                  >
+                    ✕
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Right Section - Order Summary */}
+          <div className="bg-gradient-to-br from-purple-600 to-pink-500 rounded-2xl p-6 shadow-lg h-fit text-white">
+            <h3 className="text-2xl font-bold mb-6">Order Summary</h3>
+
+            {/* Summary Items */}
+            <div className="space-y-4 mb-6">
+              <div className="flex justify-between text-lg">
+                <span>Subtotal</span>
+                <span>${subtotal.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between text-lg">
+                <span>Shipping</span>
+                <span>${shipping.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between text-lg">
+                <span>Tax (8%)</span>
+                <span>${tax.toFixed(2)}</span>
+              </div>
+              <hr className="border-white opacity-30" />
+              <div className="flex justify-between text-2xl font-bold">
+                <span>Total</span>
+                <span>${total.toFixed(2)}</span>
+              </div>
             </div>
 
             {/* Checkout Button */}
-            <button className="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white py-3 rounded-lg hover:opacity-90 font-medium text-lg">
-              Checkout 💳
+            <button className="w-full bg-white text-purple-600 py-3 rounded-xl hover:bg-gray-100 font-bold text-lg mb-3 transition">
+              Proceed to Checkout
             </button>
 
-            {/* Continue Shopping */}
+            {/* Continue Shopping Button */}
             <button
               onClick={() => navigate("/")}
-              className="w-full mt-3 border-2 border-purple-500 text-purple-600 py-3 rounded-lg hover:bg-purple-50 font-medium"
+              className="w-full border-2 border-white text-white py-3 rounded-xl hover:bg-white hover:bg-opacity-10 font-bold text-lg transition"
             >
-              Continue Shopping 🛍️
+              Continue Shopping
             </button>
 
           </div>
