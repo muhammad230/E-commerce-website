@@ -162,7 +162,7 @@ export default function CartPage() {
             </div>
 
             {/* Checkout Button */}
-            <button className="w-full bg-white text-purple-600 py-3 rounded-xl hover:bg-gray-100 font-bold text-lg mb-3 transition">
+            <button onClick={() => navigate("/checkout")} className="w-full bg-white text-purple-600 py-3 rounded-xl hover:bg-gray-100 font-bold text-lg mb-3 transition">
               Proceed to Checkout
             </button>
 
