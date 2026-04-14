@@ -8,6 +8,8 @@ import CartPage from './Components/CartPage'
 import ProductDetail from './Components/ProductDetail'  // ← ADD THIS
 import CheckoutPage from "./Components/CheckoutPage";
 
+
+
 function App() {
   return (
     <CartProvider>
@@ -19,6 +21,7 @@ function App() {
           <Route path="/product/:id" element={<ProductDetail />} />  {/* ← ADD THIS */}
           <Route path="/checkout" element={<CheckoutPage />} />
           
+
         </Routes>
 
       </BrowserRouter>
