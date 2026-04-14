@@ -43,7 +43,7 @@ const CheckoutPage = () => {
       alert("Please fill all required fields!");
       return;
     }
-    navigate("/thankyou");
+    navigate("/thank-you");
   };
 
   return (
