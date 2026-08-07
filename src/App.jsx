@@ -1,3 +1,10 @@
+
+import React from 'react'
+import Navbar from './Components/Navbar'
+import Hero from './Components/Hero'
+import Category from './Components/Category'
+import { CartProvider } from './CartContext'
+
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "./CartContext";
@@ -12,6 +19,18 @@ import ThankYouPage from "./Components/ThankYouPage";
 function App() {
   return (
     <CartProvider>
+
+      <div>
+        <Navbar />
+        <Hero/>
+        <Category/>
+      </div>
+    </CartProvider>
+  )
+}
+
+export default App
+
       <BrowserRouter>
         <Navbar />
         <Routes>
