@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useCart } from "../CartContext";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const categories = [
   "All",
@@ -90,13 +90,35 @@ const products = [
 
 const Category = () => {
   const [active, setActive] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
   const { addToCart } = useCart();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [prevTs, setPrevTs] = useState(location.state?.ts);
 
-  const filteredProducts =
+  if (location.state?.ts !== prevTs) {
+    setPrevTs(location.state?.ts);
+    setSearchQuery(location.state?.searchQuery || "");
+    setActive("All");
+  }
+
+  const handleClearSearch = () => {
+    setSearchQuery("");
+  };
+
+  let filteredProducts =
     active === "All"
       ? products
       : products.filter((p) => p.category === active);
+
+  if (searchQuery.trim()) {
+    const q = searchQuery.trim().toLowerCase();
+    filteredProducts = filteredProducts.filter(
+      (p) =>
+        p.title.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q)
+    );
+  }
 
   // Click on button → Add to Cart
   const handleAddToCart = (item) => {
@@ -120,6 +142,25 @@ const Category = () => {
         </span>
       </h2>
 
+      {/* Search Results Banner */}
+      {searchQuery.trim() && (
+        <div className="flex items-center justify-between mb-6 p-4 bg-white rounded-xl shadow-sm">
+          <p className="text-gray-700">
+            <span className="font-semibold text-purple-600">
+              {filteredProducts.length}
+            </span>{" "}
+            result{filteredProducts.length === 1 ? "" : "s"} for "
+            <span className="font-semibold">{searchQuery}</span>"
+          </p>
+          <button
+            onClick={handleClearSearch}
+            className="text-sm text-red-500 hover:text-red-700 font-medium"
+          >
+            ✕ Clear Search
+          </button>
+        </div>
+      )}
+
       {/* Category Buttons */}
       <div className="flex flex-wrap gap-4">
         {categories.map((item) => (
@@ -139,6 +180,14 @@ const Category = () => {
       </div>
 
       {/* Products Grid */}
+      {filteredProducts.length === 0 ? (
+        <div className="mt-10 text-center bg-white rounded-2xl shadow-sm py-16">
+          <p className="text-2xl font-bold text-gray-700 mb-2">🔍 No results found</p>
+          <p className="text-gray-500">
+            No products match your search. Try a different keyword.
+          </p>
+        </div>
+      ) : (
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-10">
         {filteredProducts.map((item) => (
           <div
@@ -204,6 +253,7 @@ const Category = () => {
           </div>
         ))}
       </div>
+      )}
 
     </section>
   );
