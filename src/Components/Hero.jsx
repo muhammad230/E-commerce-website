@@ -9,7 +9,9 @@ const Hero = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      navigate("/", { state: { searchQuery: searchQuery.trim() } });
+      navigate("/", {
+        state: { searchQuery: searchQuery.trim(), ts: Date.now() },
+      });
       setSearchQuery("");
     }
   };
