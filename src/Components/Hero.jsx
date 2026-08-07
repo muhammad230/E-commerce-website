@@ -1,7 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { FiSearch } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate("/", {
+        state: { searchQuery: searchQuery.trim(), ts: Date.now() },
+      });
+      setSearchQuery("");
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSearch(e);
+    }
+  };
+
   return (
     <section className="min-h-screen bg-[linear-gradient(to_right,#a855f7,#f70968,#3b82f6)] flex flex-col items-center justify-center text-white px-6 text-center">
       <div className="mb-6">
@@ -21,14 +41,17 @@ const Hero = () => {
         Discover the latest tech products at amazing prices
       </p>
 
-       <div className="w-full max-w-xl bg-white/20 backdrop-blur-md rounded-xl flex items-center px-4 py-3 mb-10 border-gray-400">
-        <FiSearch className="text-white/70 text-xl mr-3 " />
+       <form onSubmit={handleSearch} className="w-full max-w-xl bg-white/20 backdrop-blur-md rounded-xl flex items-center px-4 py-3 mb-10 border-gray-400">
+        <FiSearch className="text-white/70 text-xl mr-3 cursor-pointer" onClick={handleSearch} />
         <input
           type="text"
           placeholder="Search for products..."
-          className="bg-transparent outline-none text-black/40 w-full placeholder:text-black/40"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyPress={handleKeyPress}
+          className="bg-transparent outline-none text-white w-full placeholder:text-white/50"
         />
-      </div>
+      </form>
 
        <div className="flex flex-wrap justify-center gap-10 text-center">
         
